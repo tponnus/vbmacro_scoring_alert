@@ -1,0 +1,38 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "Sheet1"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Private Sub CommandButton1_Click()
+sendemail
+End Sub
+
+Public Function sendemail()
+On Error GoTo ende
+esubject = "ScoringAlert"
+sendto = "dinesha.a.s@monsanto.com" & ";" & "sreedevi.kodikoppalu.venkatesh@monsanto.com" & ";" & "anand.kumar.rajanna@monsanto.com"
+ccto = "tponnus@monsanto.com" & ";" & "rupa.v.nair@monsanto.com"
+ebody = "Hi All" & vbCrLf & "Find attached the scoring alert for this week." & vbCrLf & "Best Regards" & vbCrLf & "Thillai"
+newfilename = "C:\Users\tponnus\Desktop\ScoringAlert/scoringAlert.xlsm"
+Set app = CreateObject("outlook.application")
+Set itm = app.createitem(0)
+With itm
+.Subject = esubject
+.to = sendto
+.cc = ccto
+.body = ebody
+.attachments.Add (newfilename)
+.display
+.send
+End With
+Set app = Nothing
+Set itm = Nothing
+
+
+
+ende:
+End Function
